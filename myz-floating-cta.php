@@ -2,7 +2,7 @@
 /**
  * Plugin Name: MYZ Floating CTA Button
  * Description: スクロールで表示されるフローティングCTAボタン。テキスト・色・リンク先を管理画面から設定可能。
- * Version: 1.7.0
+ * Version: 1.8.0
  * Author: MYZ Inbound Inc.
  * Text Domain: myz-floating-cta
  */
@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('MYZ_FCTA_VERSION', '1.7.0');
+define('MYZ_FCTA_VERSION', '1.8.0');
 define('MYZ_FCTA_PATH', plugin_dir_path(__FILE__));
 define('MYZ_FCTA_URL', plugin_dir_url(__FILE__));
 
@@ -29,6 +29,7 @@ class MYZ_Floating_CTA {
         'mincho' => '"Hiragino Mincho ProN", "Noto Serif JP", "Yu Mincho", "MS PMincho", serif',
         'maru'   => '"Hiragino Maru Gothic ProN", "Kosugi Maru", "Yu Gothic", sans-serif',
         'mono'   => '"SF Mono", "Hiragino Kaku Gothic ProN", "Courier New", monospace',
+        'roman'  => '"Times New Roman", "Times", "Hiragino Mincho ProN", "Noto Serif JP", serif',
     ];
 
     /**
@@ -209,6 +210,7 @@ class MYZ_Floating_CTA {
                                 <option value="mincho" <?php selected($font_family, 'mincho'); ?>>明朝体</option>
                                 <option value="maru"   <?php selected($font_family, 'maru'); ?>>丸ゴシック</option>
                                 <option value="mono"   <?php selected($font_family, 'mono'); ?>>等幅フォント</option>
+                                <option value="roman"  <?php selected($font_family, 'roman'); ?>>Times New Roman</option>
                             </select>
                         </td>
                     </tr>
@@ -321,7 +323,8 @@ class MYZ_Floating_CTA {
                         gothic: '"Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", "Meiryo", sans-serif',
                         mincho: '"Hiragino Mincho ProN", "Noto Serif JP", "Yu Mincho", "MS PMincho", serif',
                         maru:   '"Hiragino Maru Gothic ProN", "Kosugi Maru", "Yu Gothic", sans-serif',
-                        mono:   '"SF Mono", "Hiragino Kaku Gothic ProN", "Courier New", monospace'
+                        mono:   '"SF Mono", "Hiragino Kaku Gothic ProN", "Courier New", monospace',
+                        roman:  '"Times New Roman", "Times", "Hiragino Mincho ProN", "Noto Serif JP", serif'
                     };
 
                     var sizeMap = {small:{fs:13,pv:10,ph:18}, medium:{fs:15,pv:14,ph:24}, large:{fs:18,pv:18,ph:32}};
