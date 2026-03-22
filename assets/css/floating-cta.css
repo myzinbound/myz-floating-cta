@@ -1,0 +1,61 @@
+/* MYZ Floating CTA Button */
+
+#myz-floating-cta {
+    position: fixed;
+    bottom: 24px;
+    z-index: 99998;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Noto Sans JP", sans-serif;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    pointer-events: none;
+}
+
+/* 右下 */
+#myz-floating-cta.myz-fcta-right {
+    right: 24px;
+    left: auto;
+}
+
+/* 左下 */
+#myz-floating-cta.myz-fcta-left {
+    left: 24px;
+    right: auto;
+}
+
+#myz-floating-cta.myz-fcta-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+#myz-floating-cta:hover {
+    filter: brightness(0.9);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+    text-decoration: none;
+}
+
+/* モバイル対応 */
+@media (max-width: 480px) {
+    #myz-floating-cta {
+        bottom: 16px;
+    }
+    #myz-floating-cta.myz-fcta-right {
+        right: 16px;
+    }
+    #myz-floating-cta.myz-fcta-left {
+        left: 16px;
+    }
+}
