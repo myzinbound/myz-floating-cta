@@ -2,7 +2,7 @@
 /**
  * Plugin Name: MYZ Floating CTA Button
  * Description: スクロールで表示されるフローティングCTAボタン。テキスト・色・リンク先を管理画面から設定可能。
- * Version: 1.8.0
+ * Version: 1.8.1
  * Author: MYZ Inbound Inc.
  * Text Domain: myz-floating-cta
  */
@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('MYZ_FCTA_VERSION', '1.8.0');
+define('MYZ_FCTA_VERSION', '1.8.1');
 define('MYZ_FCTA_PATH', plugin_dir_path(__FILE__));
 define('MYZ_FCTA_URL', plugin_dir_url(__FILE__));
 
@@ -24,12 +24,12 @@ class MYZ_Floating_CTA {
      * フォントマップ
      */
     private $font_map = [
-        'system' => '-apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Noto Sans JP", sans-serif',
-        'gothic' => '"Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", "Meiryo", sans-serif',
-        'mincho' => '"Hiragino Mincho ProN", "Noto Serif JP", "Yu Mincho", "MS PMincho", serif',
-        'maru'   => '"Hiragino Maru Gothic ProN", "Kosugi Maru", "Yu Gothic", sans-serif',
-        'mono'   => '"SF Mono", "Hiragino Kaku Gothic ProN", "Courier New", monospace',
-        'roman'  => '"Times New Roman", "Times", "Hiragino Mincho ProN", "Noto Serif JP", serif',
+        'system' => "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', sans-serif",
+        'gothic' => "'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Yu Gothic', 'Meiryo', sans-serif",
+        'mincho' => "'Hiragino Mincho ProN', 'Noto Serif JP', 'Yu Mincho', 'MS PMincho', serif",
+        'maru'   => "'Hiragino Maru Gothic ProN', 'Kosugi Maru', 'Yu Gothic', sans-serif",
+        'mono'   => "'SF Mono', 'Hiragino Kaku Gothic ProN', 'Courier New', monospace",
+        'roman'  => "'Times New Roman', 'Times', 'Hiragino Mincho ProN', 'Noto Serif JP', serif",
     ];
 
     /**
