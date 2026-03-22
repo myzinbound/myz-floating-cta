@@ -2,7 +2,7 @@
 /**
  * Plugin Name: MYZ Floating CTA Button
  * Description: スクロールで表示されるフローティングCTAボタン。テキスト・色・リンク先を管理画面から設定可能。
- * Version: 1.9.1
+ * Version: 1.9.2
  * Author: MYZ Inbound Inc.
  * Text Domain: myz-floating-cta
  */
@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('MYZ_FCTA_VERSION', '1.9.1');
+define('MYZ_FCTA_VERSION', '1.9.2');
 define('MYZ_FCTA_PATH', plugin_dir_path(__FILE__));
 define('MYZ_FCTA_URL', plugin_dir_url(__FILE__));
 
@@ -484,8 +484,6 @@ class MYZ_Floating_CTA {
             $font_css,
             esc_attr($font_weight)
         );
-        // モバイル: チャットボットのトグルと同じサイズに縮小して高さを揃える
-        echo '@media(max-width:480px){#myz-floating-cta{padding:10px 18px!important;font-size:13px!important;}}';
         echo '</style>';
 
         printf(
