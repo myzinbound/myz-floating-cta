@@ -2,7 +2,7 @@
 /**
  * Plugin Name: MYZ Floating CTA Button
  * Description: スクロールで表示されるフローティングCTAボタン。テキスト・色・リンク先を管理画面から設定可能。
- * Version: 1.9.2
+ * Version: 2.0.0
  * Author: MYZ Inbound Inc.
  * Text Domain: myz-floating-cta
  */
@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('MYZ_FCTA_VERSION', '1.9.2');
+define('MYZ_FCTA_VERSION', '2.0.0');
 define('MYZ_FCTA_PATH', plugin_dir_path(__FILE__));
 define('MYZ_FCTA_URL', plugin_dir_url(__FILE__));
 
@@ -101,6 +101,11 @@ class MYZ_Floating_CTA {
             'sanitize_callback' => 'sanitize_text_field',
             'default'           => '600',
         ]);
+        register_setting('myz_floating_cta_group', 'myz_fcta_font_size', [
+            'type'              => 'string',
+            'sanitize_callback' => 'sanitize_text_field',
+            'default'           => '15',
+        ]);
         register_setting('myz_floating_cta_group', 'myz_fcta_size', [
             'type'              => 'string',
             'sanitize_callback' => 'sanitize_text_field',
@@ -170,6 +175,7 @@ class MYZ_Floating_CTA {
         $text_color    = get_option('myz_fcta_text_color', '#ffffff');
         $font_family   = get_option('myz_fcta_font_family', 'system');
         $font_weight   = get_option('myz_fcta_font_weight', '600');
+        $font_size     = get_option('myz_fcta_font_size', '15');
         $size          = get_option('myz_fcta_size', 'medium');
         $border_radius = get_option('myz_fcta_border_radius', 50);
         $position      = get_option('myz_fcta_position', 'right');
@@ -222,6 +228,20 @@ class MYZ_Floating_CTA {
                                 <option value="400" <?php selected($font_weight, '400'); ?>>Regular（標準）</option>
                                 <option value="600" <?php selected($font_weight, '600'); ?>>Semi Bold（やや太い）</option>
                                 <option value="700" <?php selected($font_weight, '700'); ?>>Bold（太い）</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row"><label for="myz_fcta_font_size">フォントサイズ</label></th>
+                        <td>
+                            <select id="myz_fcta_font_size" name="myz_fcta_font_size">
+                                <option value="12" <?php selected($font_size, '12'); ?>>12px</option>
+                                <option value="13" <?php selected($font_size, '13'); ?>>13px</option>
+                                <option value="14" <?php selected($font_size, '14'); ?>>14px</option>
+                                <option value="15" <?php selected($font_size, '15'); ?>>15px（デフォルト）</option>
+                                <option value="16" <?php selected($font_size, '16'); ?>>16px</option>
+                                <option value="17" <?php selected($font_size, '17'); ?>>17px</option>
+                                <option value="18" <?php selected($font_size, '18'); ?>>18px</option>
                             </select>
                         </td>
                     </tr>
@@ -297,7 +317,7 @@ class MYZ_Floating_CTA {
                         border: none;
                         border-radius: <?php echo esc_attr($border_radius); ?>px;
                         padding: <?php echo $s['pv']; ?>px <?php echo $s['ph']; ?>px;
-                        font-size: <?php echo $s['fs']; ?>px;
+                        font-size: <?php echo esc_attr($font_size); ?>px;
                         font-weight: <?php echo esc_attr($font_weight); ?>;
                         text-decoration: none;
                         box-shadow: 0 4px 16px rgba(0,0,0,0.2);
@@ -312,6 +332,7 @@ class MYZ_Floating_CTA {
                     var txInput     = document.getElementById('myz_fcta_text_color');
                     var ffInput     = document.getElementById('myz_fcta_font_family');
                     var fwInput     = document.getElementById('myz_fcta_font_weight');
+                    var fsInput     = document.getElementById('myz_fcta_font_size');
                     var sizeInputs  = document.querySelectorAll('input[name="myz_fcta_size"]');
                     var brInput     = document.getElementById('myz_fcta_border_radius');
                     var brValue     = document.getElementById('myz_fcta_radius_value');
@@ -335,6 +356,7 @@ class MYZ_Floating_CTA {
 
                     ffInput.addEventListener('change', function(){ preview.style.fontFamily = fonts[this.value] || fonts.system; });
                     fwInput.addEventListener('change', function(){ preview.style.fontWeight = this.value; });
+                    fsInput.addEventListener('change', function(){ preview.style.fontSize = this.value + 'px'; });
 
                     sizeInputs.forEach(function(radio){
                         radio.addEventListener('change', function(){
@@ -456,6 +478,7 @@ class MYZ_Floating_CTA {
         $text_color    = get_option('myz_fcta_text_color', '#ffffff');
         $font_family   = get_option('myz_fcta_font_family', 'system');
         $font_weight   = get_option('myz_fcta_font_weight', '600');
+        $font_size     = get_option('myz_fcta_font_size', '15');
         $size          = get_option('myz_fcta_size', 'medium');
         $border_radius = get_option('myz_fcta_border_radius', 50);
         $position      = get_option('myz_fcta_position', 'right');
@@ -471,13 +494,13 @@ class MYZ_Floating_CTA {
         $target = $new_tab ? ' target="_blank" rel="noopener noreferrer"' : '';
         $pos_class = ($position === 'left') ? 'myz-fcta-left' : 'myz-fcta-right';
 
-        // スタイルをstyleタグで出力（モバイル対応のメディアクエリを含む）
+        // スタイルをstyleタグで出力
         echo '<style>';
         printf(
             '#myz-floating-cta{background:%s!important;color:%s!important;font-size:%spx!important;padding:%spx %spx!important;border-radius:%spx!important;font-family:%s!important;font-weight:%s!important;}',
             esc_attr($bg_color),
             esc_attr($text_color),
-            esc_attr($s['fs']),
+            esc_attr($font_size),
             esc_attr($s['pv']),
             esc_attr($s['ph']),
             esc_attr($border_radius),
