@@ -2,7 +2,7 @@
 /**
  * Plugin Name: MYZ Floating CTA Button
  * Description: スクロールで表示されるフローティングCTAボタン。テキスト・色・リンク先を管理画面から設定可能。
- * Version: 1.9.0
+ * Version: 1.9.1
  * Author: MYZ Inbound Inc.
  * Text Domain: myz-floating-cta
  */
@@ -11,7 +11,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('MYZ_FCTA_VERSION', '1.9.0');
+define('MYZ_FCTA_VERSION', '1.9.1');
 define('MYZ_FCTA_PATH', plugin_dir_path(__FILE__));
 define('MYZ_FCTA_URL', plugin_dir_url(__FILE__));
 
@@ -471,11 +471,10 @@ class MYZ_Floating_CTA {
         $target = $new_tab ? ' target="_blank" rel="noopener noreferrer"' : '';
         $pos_class = ($position === 'left') ? 'myz-fcta-left' : 'myz-fcta-right';
 
+        // スタイルをstyleタグで出力（モバイル対応のメディアクエリを含む）
+        echo '<style>';
         printf(
-            '<a id="myz-floating-cta" class="%s" href="%s"%s style="background:%s !important;color:%s !important;font-size:%spx !important;padding:%spx %spx !important;border-radius:%spx !important;font-family:%s !important;font-weight:%s !important;">%s</a>',
-            esc_attr($pos_class),
-            esc_url($url),
-            $target,
+            '#myz-floating-cta{background:%s!important;color:%s!important;font-size:%spx!important;padding:%spx %spx!important;border-radius:%spx!important;font-family:%s!important;font-weight:%s!important;}',
             esc_attr($bg_color),
             esc_attr($text_color),
             esc_attr($s['fs']),
@@ -483,7 +482,17 @@ class MYZ_Floating_CTA {
             esc_attr($s['ph']),
             esc_attr($border_radius),
             $font_css,
-            esc_attr($font_weight),
+            esc_attr($font_weight)
+        );
+        // モバイル: チャットボットのトグルと同じサイズに縮小して高さを揃える
+        echo '@media(max-width:480px){#myz-floating-cta{padding:10px 18px!important;font-size:13px!important;}}';
+        echo '</style>';
+
+        printf(
+            '<a id="myz-floating-cta" class="%s" href="%s"%s>%s</a>',
+            esc_attr($pos_class),
+            esc_url($url),
+            $target,
             esc_html($text)
         );
     }
